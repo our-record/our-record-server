@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  content: {
+  story: {
     type: String,
     required: true,
   },

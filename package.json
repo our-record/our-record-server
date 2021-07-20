@@ -7,7 +7,7 @@
     "url": "git+https://github.com/AutumnWithJay/our-record-backend.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js --delay 5"
+    "dev": "nodemon --exec babel-node src/init.js --delay 5"
   },
   "author": "Jay Park",
   "license": "ISC",
