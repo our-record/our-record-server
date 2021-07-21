@@ -8,7 +8,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use('/', globalRouter);
 app.use('/post', postRouter);
 app.use('/users', userRouter);

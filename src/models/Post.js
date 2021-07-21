@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   expenseInfo: {
-    type: Number,
+    type: String,
     required: true,
   },
   time: {
@@ -28,9 +28,9 @@ const postSchema = new mongoose.Schema({
   },
   longitude: Number,
   latitude: Number,
-  date_photo: String,
+  datePhoto: String,
 });
 
-const postModel = mongoose.model('Post', postSchema);
+const postModel = mongoose.model('post', postSchema);
 
 export default postModel;
