@@ -1,11 +1,18 @@
 import express from 'express';
-import { detailPost, editPost, removePost, writePost } from '../controllers/postController';
+import {
+  editPost,
+  postList,
+  removePost,
+  storyDetail,
+  writePost,
+} from '../controllers/postController';
 
 const postRouter = express.Router();
 
-postRouter.get('/write', writePost);
-postRouter.get('/:id(\\d+)', detailPost);
-postRouter.post('/:id(\\d+)/edit', editPost);
-postRouter.post('/:id(\\d+)/remove', removePost);
+postRouter.get('/list/:date', postList);
+postRouter.get('/story/', storyDetail);
+postRouter.post('/write', writePost);
+postRouter.post('/edit/:_id', editPost);
+postRouter.post('/remove/', removePost);
 
 export default postRouter;
