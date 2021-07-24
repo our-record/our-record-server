@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const categorySchema = new mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'post',
+    ref: 'Post',
     required: true,
   },
   name: {
@@ -11,6 +11,6 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-const categoryModel = mongoose.model('category', categorySchema);
+const categoryModel = mongoose.model('Category', categorySchema);
 
 export default categoryModel;

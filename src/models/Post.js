@@ -29,8 +29,13 @@ const postSchema = new mongoose.Schema({
   longitude: Number,
   latitude: Number,
   datePhoto: String,
+  writer: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
 });
 
-const postModel = mongoose.model('post', postSchema);
+const postModel = mongoose.model('Post', postSchema);
 
 export default postModel;
