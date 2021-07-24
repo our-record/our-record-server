@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 mongoose.connect('mongodb://127.0.0.1:27017/our-record', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
 });
 
 // 커넥션 관련 변수 선언

@@ -51,7 +51,7 @@ export const editPost = async (req, res) => {
     const { _id } = req.params;
     await Post.findByIdAndUpdate(_id, { $set: req.body }, { new: true }, function (err, result) {
       console.log(`${_id}의 데이터 수정 완료`);
-      res.send('Done');
+      res.sendStatus(200);
     });
   } catch (error) {
     console.log(error);
@@ -62,7 +62,7 @@ export const editPost = async (req, res) => {
 export const removePost = async (req, res) => {
   try {
     const { _id } = req.body;
-    await Post.findOneAndRemove({ _id }).then((data) => {
+    await Post.findOneAndDelete(_id).then((data) => {
       console.log('Post Removed');
       res.sendStatus(200);
     });

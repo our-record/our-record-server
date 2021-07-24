@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const coupleInfoSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'coupleDB',
+  },
   dday: {
     type: Date,
     required: true,
@@ -16,6 +20,6 @@ const coupleInfoSchema = new mongoose.Schema({
   couple_img: String,
 });
 
-const coupleInfoModel = mongoose.model('CoupleInfoModel', coupleInfoSchema);
+const coupleInfoModel = mongoose.model('coupleInfo', coupleInfoSchema);
 
 export default coupleInfoModel;

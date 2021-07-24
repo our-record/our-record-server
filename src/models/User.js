@@ -1,13 +1,26 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+  },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   nickname: {
     type: String,
     required: true,
+    unique: true,
+  },
+  couple_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CoupleDB',
+  },
+  token: {
+    type: String,
   },
 });
 
