@@ -1,23 +1,15 @@
 import mongoose from 'mongoose';
 
 const coupleInfoSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'coupleDB',
-  },
   dday: {
     type: Date,
     required: true,
   },
-  f_birth: {
-    type: Date,
-    required: true,
-  },
-  m_birth: {
-    type: Date,
-    required: true,
-  },
+  f_birth: Date,
+  m_birth: Date,
   couple_img: String,
+  f_nickname: String,
+  m_nickname: String,
 });
 
 const coupleInfoModel = mongoose.model('coupleInfo', coupleInfoSchema);

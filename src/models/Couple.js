@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
 const coupleSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
   f_email: {
     type: String,
   },
