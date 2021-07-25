@@ -8,7 +8,10 @@ export const login = (req, res) => {
   // req.session.user = user;
   res.send('Login');
 };
-export const logout = (req, res) => res.send('Logout');
+export const logout = (req, res) => {
+  req.session.destory();
+  return res.redirect('/');
+};
 
 export const register = async (req, res) => {
   const { email } = req.body;
