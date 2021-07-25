@@ -11,8 +11,9 @@ const postSchema = new mongoose.Schema({
   },
   place: String,
   category: {
-    type: String,
+    type: Number,
     required: true,
+    ref: 'Category',
   },
   expense: {
     type: Number,

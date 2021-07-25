@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
-  },
   email: {
     type: String,
     required: true,
@@ -13,7 +9,6 @@ const userSchema = new mongoose.Schema({
   nickname: {
     type: String,
     required: true,
-    unique: true,
   },
   couple_id: {
     type: mongoose.Schema.Types.ObjectId,
