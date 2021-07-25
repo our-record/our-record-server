@@ -22,7 +22,8 @@
     "express-session": "^1.17.2",
     "jose": "^3.14.0",
     "mongoose": "^5.13.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

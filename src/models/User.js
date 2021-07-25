@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CoupleDB',
   },
+  socialOnly: {
+    type: Boolean,
+    default: false,
+  },
   token: {
     type: String,
   },
