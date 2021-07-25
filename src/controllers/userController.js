@@ -3,7 +3,11 @@ import User from '../models/User';
 export const detail = (req, res) => res.send('User Detail');
 export const edit = (req, res) => res.send('Edit User');
 export const join = (req, res) => res.send('Join');
-export const login = (req, res) => res.send('Login');
+export const login = (req, res) => {
+  req.session.loggined = true;
+  // req.session.user = user;
+  res.send('Login');
+};
 export const logout = (req, res) => res.send('Logout');
 
 export const register = async (req, res) => {
