@@ -1,5 +1,5 @@
 import User from '../models/User';
-import CoupleInfo from './models/CoupleInfo';
+import CoupleInfo from '../models/CoupleInfo';
 
 export const detail = (req, res) => res.send('User Detail');
 
