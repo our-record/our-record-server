@@ -1,4 +1,6 @@
+import axios from 'axios';
 import fetch from 'node-fetch';
+import QueryString from 'qs';
 import User from '../models/User';
 
 export const startGithubLogin = (req, res) => {
@@ -67,4 +69,48 @@ export const finishGithubLogin = async (req, res) => {
   } else {
     return res.redirect('/login');
   }
+};
+
+export const startKakaoLogin = (req, res) => {
+  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API}&redirect_uri=http://10.58.6.150:4000/kakao/callback&response_type=code&scope=account_email`;
+  res.redirect(kakaoAuthURL);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  let token;
+
+  try {
+    token = await axios({
+      method: 'POST',
+      url: 'https://kauth.kakao.com/oauth/token',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      data: QueryString.stringify({
+        grant_type: 'authorization_code',
+        client_id: process.env.KAKAO_REST_API,
+        redirect_uri: 'http://10.58.6.150:4000/kakao/callback',
+        code: req.query.code,
+      }),
+    });
+  } catch (error) {
+    res.json(error.data);
+  }
+
+  let user;
+
+  try {
+    user = await axios({
+      method: 'get',
+      url: 'https://kapi.kakao.com/v2/user/me',
+      headers: {
+        Authorization: `Bearer ${token.data.access_token}`,
+      },
+    });
+  } catch (error) {
+    res.json(error.data);
+  }
+
+  req.session.user = user.data;
+  res.status(200).redirect('http://localhost:3000/information');
 };
