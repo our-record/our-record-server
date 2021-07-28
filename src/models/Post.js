@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
   category: {
     type: Number,
     required: true,
-    ref: 'Category',
+    ref: 'categories',
   },
   expense: {
     type: Number,

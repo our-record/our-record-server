@@ -4,15 +4,15 @@ export const localsMiddleware = (req, res, next) => {
 };
 
 export const protectMiddleware = (req, res, next) => {
-  if (req.session.loggedIn) {
+  if (req.session.loggined) {
     return next();
   } else {
-    return res.redirect('/login');
+    return res.redirect('/');
   }
 };
 
 export const publicOnlyMiddleware = (req, res, next) => {
-  if (!req.session.loggedIn) {
+  if (!req.session.loggined) {
     return next();
   } else {
     // Redirect To Edit Profile
