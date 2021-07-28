@@ -13,10 +13,7 @@ const userSchema = new mongoose.Schema({
   couple_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CoupleDB',
-  },
-  socialOnly: {
-    type: Boolean,
-    default: false,
+    required: true,
   },
   token: {
     type: String,

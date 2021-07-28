@@ -1,4 +1,5 @@
 import axios from 'axios';
+import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import QueryString from 'qs';
 import User from '../models/User';
@@ -72,11 +73,17 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const startKakaoLogin = (req, res) => {
-  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API}&redirect_uri=http://10.58.6.150:4000/kakao/callback&response_type=code&scope=account_email`;
+  if (req.params.id) {
+    req.session.inviteCode = req.params.id;
+  }
+
+  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.SERVER_IP}/kakao/callback&response_type=code&scope=account_email`;
   res.redirect(kakaoAuthURL);
 };
 
 export const finishKakaoLogin = async (req, res) => {
+  const inviteCode = req.session.inviteCode;
+
   let token;
 
   try {
@@ -89,7 +96,7 @@ export const finishKakaoLogin = async (req, res) => {
       data: QueryString.stringify({
         grant_type: 'authorization_code',
         client_id: process.env.KAKAO_REST_API,
-        redirect_uri: 'http://10.58.6.150:4000/kakao/callback',
+        redirect_uri: `${process.env.SERVER_IP}/kakao/callback`,
         code: req.query.code,
       }),
     });
@@ -97,10 +104,10 @@ export const finishKakaoLogin = async (req, res) => {
     res.json(error.data);
   }
 
-  let user;
+  let getUser;
 
   try {
-    user = await axios({
+    getUser = await axios({
       method: 'get',
       url: 'https://kapi.kakao.com/v2/user/me',
       headers: {
@@ -111,6 +118,20 @@ export const finishKakaoLogin = async (req, res) => {
     res.json(error.data);
   }
 
-  req.session.user = user.data;
-  res.status(200).redirect('http://localhost:3000/information');
+  let isExistUser = await User.findOne({ email: getUser.data.kakao_account.email });
+
+  if (!isExistUser) {
+    isExistUser = await User.create({
+      email: getUser.data.kakao_account.email,
+      nickname: getUser.data.properties.nickname,
+      couple_id: inviteCode ? inviteCode : mongoose.Types.ObjectId(),
+    });
+    req.session.loggedIn = true;
+    req.session.user = isExistUser;
+    return res.redirect('/');
+  } else {
+    req.session.loggedIn = true;
+    req.session.user = isExistUser;
+    return res.redirect('/');
+  }
 };

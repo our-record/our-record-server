@@ -1,6 +1,16 @@
 import mongoose from 'mongoose';
 
-const coupleInfoSchema = new mongoose.Schema({
+const coupleSchema = new mongoose.Schema({
+  f_email: {
+    type: String,
+  },
+  m_email: {
+    type: String,
+  },
+  anniversary_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Anniversary',
+  },
   dday: {
     type: Date,
     required: true,
@@ -8,10 +18,8 @@ const coupleInfoSchema = new mongoose.Schema({
   f_birth: Date,
   m_birth: Date,
   couple_img: String,
-  f_nickname: String,
-  m_nickname: String,
 });
 
-const coupleInfoModel = mongoose.model('coupleInfo', coupleInfoSchema);
+const coupleModel = mongoose.model('CoupleDB', coupleSchema);
 
-export default coupleInfoModel;
+export default coupleModel;

@@ -2,7 +2,6 @@ import 'dotenv/config';
 import './db';
 import './models/Anniversary';
 import './models/Categories';
-import './models/Couple';
 import './models/CoupleInfo';
 import './models/Post';
 import './models/User';
