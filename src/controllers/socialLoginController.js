@@ -128,10 +128,12 @@ export const finishKakaoLogin = async (req, res) => {
     });
     req.session.loggedIn = true;
     req.session.user = isExistUser;
-    return res.redirect('/');
+    return inviteCode
+      ? res.redirect('http://localhost:3000/information')
+      : res.redirect(`http://localhost:3000/information?code=${isExistUser.couple_id}`);
   } else {
     req.session.loggedIn = true;
     req.session.user = isExistUser;
-    return res.redirect('/');
+    return res.redirect('http://localhost:3000/');
   }
 };

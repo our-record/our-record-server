@@ -1,6 +1,12 @@
 import User from '../models/User';
 import CoupleInfo from '../models/CoupleInfo';
 
+export const registInfo = async (req, res) => {
+  console.log(req);
+
+  res.json(req.body);
+};
+
 export const detail = (req, res) => res.send('User Detail');
 
 // Get Method Edit
