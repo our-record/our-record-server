@@ -12,11 +12,8 @@ const userSchema = new mongoose.Schema({
   },
   couple_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'CoupleDB',
+    ref: 'CoupleInfo',
     required: true,
-  },
-  token: {
-    type: String,
   },
 });
 

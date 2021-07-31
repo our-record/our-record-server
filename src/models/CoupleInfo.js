@@ -1,12 +1,6 @@
 import mongoose from 'mongoose';
 
 const coupleSchema = new mongoose.Schema({
-  f_email: {
-    type: String,
-  },
-  m_email: {
-    type: String,
-  },
   anniversary_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Anniversary',
@@ -15,11 +9,11 @@ const coupleSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  f_birth: Date,
-  m_birth: Date,
+  first_user_birth: Date,
+  invite_user_birth: Date,
   couple_img: String,
 });
 
-const coupleModel = mongoose.model('CoupleDB', coupleSchema);
+const coupleModel = mongoose.model('CoupleInfo', coupleSchema);
 
 export default coupleModel;
