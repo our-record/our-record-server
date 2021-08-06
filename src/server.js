@@ -9,23 +9,25 @@ import userRouter from './routers/userRouter';
 import { localsMiddleware } from './middlewares';
 
 const app = express();
-let corsOption = {
-  origin: 'http://localhost:3000',
-  credentials: true,
-};
 
-app.use(cors(corsOption));
 app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   session({
-    secret: 'blahTest',
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL, ttl: 60 * 60 }),
   }),
 );
 app.use(localsMiddleware);
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 app.use('/', globalRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);

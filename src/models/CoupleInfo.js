@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const coupleSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
   anniversary_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Anniversary',
@@ -9,8 +13,10 @@ const coupleSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  first_user_birth: Date,
-  invite_user_birth: Date,
+  invitor_nickname: String,
+  invitee_nickname: String,
+  invitor_birth: Date,
+  invitee_birth: Date,
   couple_img: String,
 });
 

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import QueryString from 'qs';
 import User from '../models/User';
+import coupleInfo from '../models/CoupleInfo';
 
 export const startGithubLogin = (req, res) => {
   const baseUrl = 'https://github.com/login/oauth/authorize';
@@ -113,6 +114,7 @@ export const finishKakaoLogin = async (req, res) => {
       headers: {
         Authorization: `Bearer ${token.data.access_token}`,
       },
+      withCredentials: true,
     });
   } catch (error) {
     res.json(error.data);
@@ -123,7 +125,6 @@ export const finishKakaoLogin = async (req, res) => {
   if (!isExistUser) {
     isExistUser = await User.create({
       email: getUser.data.kakao_account.email,
-      nickname: getUser.data.properties.nickname,
       couple_id: inviteCode ? inviteCode : mongoose.Types.ObjectId(),
     });
     req.session.loggedIn = true;

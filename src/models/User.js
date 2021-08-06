@@ -6,10 +6,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  nickname: {
-    type: String,
-    required: true,
-  },
   couple_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CoupleInfo',

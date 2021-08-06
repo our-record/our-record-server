@@ -5,13 +5,12 @@ import {
   finishKakaoLogin,
   startGithubLogin,
   startKakaoLogin,
-  inviteRegister,
 } from '../controllers/socialLoginController';
 import { publicOnlyMiddleware } from '../middlewares';
 
 const globalRouter = express.Router();
 
-globalRouter.get('/', home);
+globalRouter.post('/', home);
 
 // Github Login
 globalRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);

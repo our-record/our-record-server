@@ -3,20 +3,25 @@ import Post from '../models/Post';
 export const writePost = async (req, res) => {
   try {
     const {
-      date,
-      story,
-      place,
-      category,
-      expense,
-      expenseInfo,
-      time,
-      longitude,
-      latitude,
-      datePhoto,
-    } = req.body;
+      body: {
+        date,
+        story,
+        place,
+        category,
+        expense,
+        expenseInfo,
+        time,
+        longitude,
+        latitude,
+        // datePhoto,
+      },
+      session: {
+        user: { couple_id },
+      },
+    } = req;
 
     await Post.create({
-      date,
+      date: new Date(date),
       story,
       place,
       category,
@@ -25,65 +30,104 @@ export const writePost = async (req, res) => {
       time,
       longitude,
       latitude,
-      datePhoto,
+      // datePhoto,
+      writer: couple_id,
     });
-    res.sendStatus(200);
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
-    res.sendStatus(404);
+    return res.sendStatus(404);
   }
 };
 
 export const postList = async (req, res) => {
-  const { date } = req.query;
+  const {
+    session: {
+      user: { couple_id },
+    },
+    query: { date },
+  } = req;
+
   try {
-    await Post.find({ date }).then((data) => {
-      res.json(data);
+    await Post.find({ $and: [{ date: `/^${date}` }, { writer: couple_id }] }).then((data) => {
+      return res.json(data);
     });
   } catch (error) {
     console.log(error);
-    res.send('Error');
+    return res.send('Error');
   }
 };
 
 export const editPost = async (req, res) => {
   try {
-    const { _id } = req.params;
-    await Post.findByIdAndUpdate(_id, { $set: req.body }, { new: true }, function (err, result) {
-      console.log(`${_id}의 데이터 수정 완료`);
-      res.sendStatus(200);
-    });
+    const {
+      session: {
+        user: { couple_id },
+      },
+      body: { idx: _id },
+    } = req;
+
+    await Post.findByIdAndUpdate(_id, req.body, { new: true });
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
-    res.send('Edit Failed');
+    return res.send('Edit Failed');
   }
 };
 
 export const removePost = async (req, res) => {
   try {
-    const { _id } = req.body;
-    await Post.findOneAndDelete(_id).then((data) => {
-      console.log('Post Removed');
-      res.sendStatus(200);
-    });
+    const {
+      session: {
+        user: { couple_id },
+      },
+      body: { idx: _id, date },
+    } = req;
+
+    await Post.remove({ $and: [{ _id }, { date: `/^${date}/` }, { writer: couple_id }] });
+    return res.status(200);
   } catch (error) {
     console.log(error);
-    res.send('Error');
+    return res.send('Error');
+  }
+};
+
+export const removePostAll = async (req, res) => {
+  try {
+    const {
+      session: {
+        user: { couple_id },
+      },
+      body: { date },
+    } = req;
+
+    await Post.remove({ $and: [{ date: `/^${date}/` }, { writer: couple_id }] });
+    return res.status(200);
+  } catch (error) {
+    console.log(error);
+    return res.send('Error');
   }
 };
 
 export const storyDetail = async (req, res) => {
   try {
-    const { _id } = req.body;
-    await Post.find({ _id }).then((data) => {
-      const storyObj = {
-        story: data[0].story,
-        photo_img: data[0].datePhoto,
-      };
-      res.json(storyObj);
-    });
+    const {
+      session: {
+        user: { couple_id },
+      },
+      body: { _id, date },
+    } = req;
+    await Post.find({ $and: [{ _id }, { date: `/^${date}/` }, { writer: couple_id }] }).then(
+      (data) => {
+        const storyObj = {
+          story: data[0].story,
+          photo_img: data[0].datePhoto,
+        };
+        return res.json(storyObj);
+      },
+    );
   } catch (error) {
     console.log(error);
-    res.send('Error');
+    return res.send('Error');
   }
 };
