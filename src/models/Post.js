@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
+  // _id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true,
+  // },
   date: {
     type: Date,
     required: true,
@@ -24,7 +28,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   time: {
-    type: Date,
+    type: String,
     required: true,
   },
   longitude: Number,
