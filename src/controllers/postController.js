@@ -20,6 +20,8 @@ export const writePost = async (req, res) => {
       },
     } = req;
 
+    console.log(req.body);
+
     await Post.create({
       date: new Date(date),
       story,
@@ -61,13 +63,15 @@ export const postList = async (req, res) => {
 export const editPost = async (req, res) => {
   try {
     const {
-      session: {
-        user: { couple_id },
-      },
-      body: { idx: _id },
+      body: { idx: _id, time, category, expenseInfo, expense, story },
     } = req;
 
-    await Post.findByIdAndUpdate(_id, req.body, { new: true });
+    await Post.findByIdAndUpdate(
+      _id,
+      { $set: { time, category, expenseInfo, expense, story } },
+      { new: true },
+    );
+    console.log('edited');
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);

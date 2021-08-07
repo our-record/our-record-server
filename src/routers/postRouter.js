@@ -15,7 +15,7 @@ const upload = multer({ dest: 'public/photos/' });
 postRouter.get('/list/:date', postList);
 postRouter.get('/story/', storyDetail);
 postRouter.post('/write', upload.array('datePhoto'), writePost);
-postRouter.post('/edit/', editPost);
+postRouter.post('/edit/', upload.array('dataPhoto'), editPost);
 postRouter.post('/remove/', removePost);
 postRouter.post('/remove-all', removePostAll);
 

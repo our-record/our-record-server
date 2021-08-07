@@ -6,13 +6,10 @@ const postSchema = new mongoose.Schema({
   //   required: true,
   // },
   date: {
-    type: Date,
-    required: true,
-  },
-  story: {
     type: String,
     required: true,
   },
+  story: String,
   place: String,
   category: {
     type: Number,
