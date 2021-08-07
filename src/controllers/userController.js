@@ -1,8 +1,17 @@
 import User from '../models/User';
 import CoupleInfo from '../models/CoupleInfo';
 
-export const getRegistInfo = (req, res) => {
-  return res.json(req.session);
+export const getRegistInfo = async (req, res) => {
+  const {
+    session: { couple_id },
+  } = req;
+
+  try {
+    const user = await CoupleInfo.findById(couple_id);
+    res.status(200).json(user);
+  } catch (error) {
+    return res.json(error);
+  }
 };
 
 export const postRegistInfo = async (req, res) => {
@@ -32,8 +41,6 @@ export const postRegistInfo = async (req, res) => {
 
   return res.json();
 };
-
-export const detail = (req, res) => res.send('User Detail');
 
 // Get Method Edit
 export const getEdit = async (req, res) => {
