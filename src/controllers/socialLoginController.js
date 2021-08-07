@@ -100,6 +100,7 @@ export const finishKakaoLogin = async (req, res) => {
         redirect_uri: `${process.env.SERVER_IP}/kakao/callback`,
         code: req.query.code,
       }),
+      withCredentials: true,
     });
   } catch (error) {
     res.json(error.data);

@@ -4,17 +4,19 @@ import post from '../models/Post';
 export const home = async (req, res) => {
   const { couple_id } = req.session.user;
   const { convertedDate: date } = req.body;
-  let result = {};
-
-  console.log(req.body);
-  console.log(couple_id);
+  let result = [];
 
   try {
-    await post.find({ $and: [{ writer: couple_id }, { date }] }, (err, doc) => {
-      result['post'] = doc;
+    await post.find({ writer: couple_id }, (err, doc) => {
+      const foundPost = {};
+      doc.length !== 0 ? (foundPost['post'] = doc) : (foundPost['post'] = '');
+      result.push(foundPost);
     });
     await coupleInfo.findById(couple_id, (err, doc) => {
-      result['user'] = doc;
+      const coupleData = {
+        user: doc,
+      };
+      result.push(coupleData);
     });
     return res.json(result);
   } catch (error) {
