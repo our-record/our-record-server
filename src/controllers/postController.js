@@ -3,24 +3,12 @@ import Post from '../models/Post';
 export const writePost = async (req, res) => {
   try {
     const {
-      body: {
-        date,
-        story,
-        place,
-        category,
-        expense,
-        expenseInfo,
-        time,
-        longitude,
-        latitude,
-        // datePhoto,
-      },
+      body: { date, story, place, category, expense, expenseInfo, time, longitude, latitude },
       session: {
         user: { couple_id },
       },
+      file,
     } = req;
-
-    console.log(req.body);
 
     await Post.create({
       date: new Date(date),
@@ -32,8 +20,8 @@ export const writePost = async (req, res) => {
       time,
       longitude,
       latitude,
-      // datePhoto,
       writer: couple_id,
+      datePhoto: `http://localhost:4000/images/${file.filename}`,
     });
     return res.sendStatus(200);
   } catch (error) {
@@ -47,31 +35,37 @@ export const postList = async (req, res) => {
     session: {
       user: { couple_id },
     },
-    query: { date },
+    body: { convertedDate },
   } = req;
 
   try {
-    await Post.find({ $and: [{ date: `/^${date}` }, { writer: couple_id }] }).then((data) => {
-      return res.json(data);
-    });
+    await Post.find({ $and: [{ date: convertedDate }, { writer: couple_id }] })
+      .sort('time')
+      .exec((err, doc) => {
+        return res.json(doc);
+      });
   } catch (error) {
-    console.log(error);
-    return res.send('Error');
+    return res.json(error);
   }
 };
 
 export const editPost = async (req, res) => {
   try {
     const {
-      body: { idx: _id, time, category, expenseInfo, expense, story },
+      body: { _id, time, category, expenseInfo, expense, story },
+      file,
     } = req;
 
-    await Post.findByIdAndUpdate(
-      _id,
-      { $set: { time, category, expenseInfo, expense, story } },
-      { new: true },
-    );
-    console.log('edited');
+    await Post.findByIdAndUpdate(_id, {
+      $set: {
+        time,
+        category,
+        expenseInfo,
+        expense,
+        story,
+        datePhoto: `http://localhost:4000/images/${file.filename}`,
+      },
+    });
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -85,11 +79,11 @@ export const removePost = async (req, res) => {
       session: {
         user: { couple_id },
       },
-      body: { idx: _id, date },
+      body: { id: _id },
     } = req;
 
-    await Post.remove({ $and: [{ _id }, { date: `/^${date}/` }, { writer: couple_id }] });
-    return res.status(200);
+    await Post.deleteOne({ $and: [{ _id }, { writer: couple_id }] });
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
     return res.send('Error');
@@ -102,10 +96,10 @@ export const removePostAll = async (req, res) => {
       session: {
         user: { couple_id },
       },
-      body: { date },
+      body: { convertedDate },
     } = req;
 
-    await Post.remove({ $and: [{ date: `/^${date}/` }, { writer: couple_id }] });
+    await Post.deleteMany({ $and: [{ writer: couple_id }, { date: convertedDate }] });
     return res.status(200);
   } catch (error) {
     console.log(error);
@@ -119,17 +113,17 @@ export const storyDetail = async (req, res) => {
       session: {
         user: { couple_id },
       },
-      body: { _id, date },
+      body: { _id, convertedDate },
     } = req;
-    await Post.find({ $and: [{ _id }, { date: `/^${date}/` }, { writer: couple_id }] }).then(
-      (data) => {
-        const storyObj = {
-          story: data[0].story,
-          photo_img: data[0].datePhoto,
-        };
-        return res.json(storyObj);
-      },
-    );
+    await Post.find({
+      $and: [{ _id }, { date: convertedDate }, { writer: couple_id }],
+    }).then((data) => {
+      const storyObj = {
+        story: data[0].story,
+        photo_img: data[0].datePhoto,
+      };
+      return res.json(storyObj);
+    });
   } catch (error) {
     console.log(error);
     return res.send('Error');

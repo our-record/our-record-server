@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const categorySchema = new mongoose.Schema({
   _id: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
   },
   name: {
     type: String,

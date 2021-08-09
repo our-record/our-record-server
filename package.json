@@ -30,6 +30,7 @@
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-kakao": "^1.0.1",
+    "path": "^0.12.7",
     "qs": "^6.7.0"
   },
   "devDependencies": {

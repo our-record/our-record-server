@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import globalRouter from './routers/globalRouter';
@@ -28,6 +29,7 @@ app.use(
     credentials: true,
   }),
 );
+app.use('*/images', express.static('public/images'));
 app.use('/', globalRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
