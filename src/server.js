@@ -1,9 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import path from 'path';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import anniversaryRouter from './routers/anniversaryRouter';
 import globalRouter from './routers/globalRouter';
 import postRouter from './routers/postRouter';
 import userRouter from './routers/userRouter';
@@ -31,6 +31,7 @@ app.use(
 );
 app.use('*/images', express.static('public/images'));
 app.use('/', globalRouter);
+app.use('/anniversary', anniversaryRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 
