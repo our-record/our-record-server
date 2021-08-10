@@ -19,7 +19,11 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL, ttl: 60 * 60 }),
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_URL,
+      ttl: 18 * 60 * 60,
+      autoRemove: 'native',
+    }),
   }),
 );
 app.use(localsMiddleware);
