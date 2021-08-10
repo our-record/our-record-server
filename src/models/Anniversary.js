@@ -1,11 +1,17 @@
 import mongoose from 'mongoose';
 
 const AnniversarySchema = new mongoose.Schema({
-  anniversary_info: {
+  eventName: {
     type: String,
+    required: true,
   },
-  anniversary_date: {
+  date: {
     type: Date,
+    required: true,
+  },
+  writer: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
 });
 
