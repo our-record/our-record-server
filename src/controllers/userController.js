@@ -3,7 +3,9 @@ import CoupleInfo from '../models/CoupleInfo';
 
 export const getRegistInfo = async (req, res) => {
   const {
-    session: { couple_id },
+    session: {
+      user: { couple_id },
+    },
   } = req;
 
   try {
@@ -18,7 +20,8 @@ export const postRegistInfo = async (req, res) => {
   const {
     session: { inviteCode },
     headers: { _id: couple_id },
-    body: { dday, invitor_nickname, invitor_birth, invitee_nickname, invitee_birth, couple_img },
+    body: { dday, invitor_nickname, invitor_birth, invitee_nickname, invitee_birth },
+    file,
   } = req;
 
   if (!inviteCode) {
@@ -27,7 +30,7 @@ export const postRegistInfo = async (req, res) => {
       dday,
       invitor_nickname,
       invitor_birth,
-      couple_img,
+      couple_img: `http://localhost:4000/images/${file.filename}`,
     });
   } else {
     await CoupleInfo.findByIdAndUpdate({
@@ -39,7 +42,11 @@ export const postRegistInfo = async (req, res) => {
     });
   }
 
-  return res.json();
+  return res.json({
+    success: true,
+    url: `/images/${file.filename}`,
+    fileName: res.req.file.filename,
+  });
 };
 
 // Get Method Edit
@@ -52,25 +59,34 @@ export const getEdit = async (req, res) => {
   const userData = await CoupleInfo.findById(couple_id);
   return res.json(userData);
 };
+
 // Post Method Edit
 export const postEdit = async (req, res) => {
-  const {
-    session: {
-      user: { _id },
-    },
-    body: { dday, couple_img, invitor_birth, invitee_birth, invitor_nickname, invitee_nickname },
-  } = req;
+  try {
+    const {
+      session: {
+        user: { couple_id },
+      },
+      body: { dday, invitor_birth, invitee_birth, invitor_nickname, invitee_nickname },
+    } = req;
 
-  await CoupleInfo.findByIdAndUpdate(_id, {
-    dday,
-    couple_img,
-    invitor_birth,
-    invitor_nickname,
-    invitee_birth,
-    invitee_nickname,
-  });
+    await CoupleInfo.findByIdAndUpdate(couple_id, {
+      dday,
+      invitor_birth,
+      invitor_nickname,
+      invitee_birth,
+      invitee_nickname,
+      couple_img: `http://localhost:4000/images/${req.file.filename}`,
+    });
 
-  return res.sendStatus(200);
+    return res.json({
+      success: true,
+      url: `/images/${req.file.filename}`,
+      fileName: res.req.file.filename,
+    });
+  } catch (err) {
+    return res.json(err);
+  }
 };
 
 export const logout = (req, res) => {
