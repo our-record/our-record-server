@@ -21,7 +21,7 @@ export const writePost = async (req, res) => {
       longitude,
       latitude,
       writer: couple_id,
-      datePhoto: `http://localhost:4000/images/${file.filename}`,
+      datePhoto: file ? `http://localhost:4000/images/${file.filename}` : '',
     });
     return res.sendStatus(200);
   } catch (error) {
@@ -63,7 +63,9 @@ export const editPost = async (req, res) => {
         expenseInfo,
         expense,
         story,
-        datePhoto: `http://localhost:4000/images/${file.filename}`,
+        if(file) {
+          datePhoto: `http://localhost:4000/images/${file.filename}`;
+        },
       },
     });
     return res.sendStatus(200);
