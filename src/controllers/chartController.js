@@ -14,19 +14,18 @@ export const chartHome = async (req, res) => {
         { writer: couple_id },
         {
           date: {
-            $gte: new Date().getDate() - 7,
+            $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
             $lte: new Date(),
           },
         },
       ],
-    }).exec((err, result) => res.json(result));
+    }).exec((err, result) => {
+      console.log(new Date().getDate() - 7);
+      return res.json(result);
+    });
   } catch (err) {
     return res.json(err);
   }
-};
-
-export const weeklyData = (req, res) => {
-  res.send('weekly');
 };
 
 // 월간 차트
