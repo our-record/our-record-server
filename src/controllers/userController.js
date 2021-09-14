@@ -32,21 +32,19 @@ export const postRegistInfo = async (req, res) => {
       invitor_birth,
       couple_img: `http://localhost:4000/images/${file.filename}`,
     });
+    return res.json({
+      success: true,
+      url: `/images/${file.filename}`,
+      fileName: res.req.file.filename,
+    });
   } else {
-    await CoupleInfo.findByIdAndUpdate({
-      _id: couple_id,
+    await CoupleInfo.findByIdAndUpdate(inviteCode, {
       $set: {
         invitee_nickname,
         invitee_birth,
       },
     });
   }
-
-  return res.json({
-    success: true,
-    url: `/images/${file.filename}`,
-    fileName: res.req.file.filename,
-  });
 };
 
 // Get Method Edit
@@ -68,17 +66,21 @@ export const postEdit = async (req, res) => {
         user: { couple_id },
       },
       body: { dday, invitor_birth, invitee_birth, invitor_nickname, invitee_nickname },
+      file,
     } = req;
 
     await CoupleInfo.findByIdAndUpdate(couple_id, {
-      dday,
-      invitor_birth,
-      invitor_nickname,
-      invitee_birth,
-      invitee_nickname,
-      couple_img: `http://localhost:4000/images/${req.file.filename}`,
+      $set: {
+        dday,
+        invitor_birth,
+        invitor_nickname,
+        invitee_birth,
+        invitee_nickname,
+        if(file) {
+          couple_img: `http://localhost:4000/images/${req.file.filename}`;
+        },
+      },
     });
-
     return res.json({
       success: true,
       url: `/images/${req.file.filename}`,

@@ -6,7 +6,7 @@ import {
   startGithubLogin,
   startKakaoLogin,
 } from '../controllers/socialLoginController';
-import { publicOnlyMiddleware } from '../middlewares';
+import { protectMiddleware, publicOnlyMiddleware } from '../middlewares';
 
 const globalRouter = express.Router();
 

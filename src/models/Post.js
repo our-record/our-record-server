@@ -24,8 +24,8 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  longitude: Number,
-  latitude: Number,
+  longitude: String,
+  latitude: String,
   datePhoto: String,
   writer: {
     type: mongoose.Schema.Types.ObjectId,

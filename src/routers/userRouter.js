@@ -32,7 +32,6 @@ userRouter
   .get(getRegistInfo)
   .post(uploadWithOriginalFileName.single('couple_img'), postRegistInfo);
 
-// userRouter.post('/:id(\\d+)', detail);
 userRouter
   .route('/edit')
   .all(protectMiddleware)
