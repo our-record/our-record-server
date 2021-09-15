@@ -4,7 +4,7 @@
 
 <br>
 
-<img width="1440" alt="스크린샷 2021-09-15 오후 4 44 26" src="https://user-images.githubusercontent.com/67620484/133392634-d6a62e15-b5be-467e-8b34-437dc92d5827.png">
+<img width="1435" alt="스크린샷 2021-09-15 오후 5 17 29" src="https://user-images.githubusercontent.com/67620484/133396902-e758eca4-f47f-4b8d-8a08-805cb7bbcf3f.png">
 
 <br><br>
 
