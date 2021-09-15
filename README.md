@@ -35,26 +35,22 @@
 
 ## Modeling
 
----
-
 <br><br>
 
 ## Our Record 유튜브 링크
 
-<a href="https://youtu.be/cxtBWz6Fbss">
+<a href="https://youtu.be/0f0u_wUW_nY">
     <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white/"
         style="height : auto; margin-left : 10px; margin-right : 10px;"/>
 </a>
 
 <br><br>
 
-## 기능 상세
-
----
+## 테이블 별 기능 상세
 
 ### User
 
-- 카카오 RESTful API 사용하여 서버에서 소셜 회원가입 처리
+- 카카오 회원가입 RESTful API 사용하여 서버에서 소셜 회원가입 처리
   <br><br>
 
 ### Couple_DB
@@ -73,8 +69,5 @@
 
 - 데이트 기록 작성
 - 지출 내역 및 사진을 첨부하여 해당 내역에 무슨 데이트를 했는지 파악
-  <br><br>
-
-### Chart
-
 - 주간, 월간 차트 데이터 전달
+  <br><br>
