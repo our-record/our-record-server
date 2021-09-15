@@ -4,7 +4,8 @@
 
 <br>
 
-<img width="486" alt="Our Record_메인페이지" src="">
+<img width="1440" alt="스크린샷 2021-09-15 오후 4 44 26" src="https://user-images.githubusercontent.com/67620484/133392634-d6a62e15-b5be-467e-8b34-437dc92d5827.png">
+
 <br><br>
 
 ## 프로젝트 계획 및 기간
@@ -34,6 +35,7 @@
 <br><br>
 
 ## Modeling
+<img width="1351" alt="스크린샷 2021-09-15 오후 4 47 28" src="https://user-images.githubusercontent.com/67620484/133392676-3ebd0e29-94c7-4df9-912a-76eb60026c2d.png">
 
 <br><br>
 
