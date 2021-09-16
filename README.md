@@ -35,7 +35,7 @@
 <br><br>
 
 ## Modeling
-<img width="1351" alt="스크린샷 2021-09-15 오후 4 47 28" src="https://user-images.githubusercontent.com/67620484/133392676-3ebd0e29-94c7-4df9-912a-76eb60026c2d.png">
+<img width="1320" alt="스크린샷 2021-09-16 오후 2 42 29" src="https://user-images.githubusercontent.com/67620484/133556214-602153e9-4d02-4fbf-b9d4-694530465539.png">
 
 <br><br>
 
