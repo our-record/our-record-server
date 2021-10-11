@@ -30,6 +30,21 @@ export const writePost = async (req, res) => {
   }
 };
 
+export const postDetail = async (req, res) => {
+  const {
+    body: { _id },
+  } = req;
+
+  try {
+    await Post.findById(_id).exec((err, doc) => {
+      const { time, category, expenseInfo, expense, story } = doc;
+      return res.json({ time, category, expenseInfo, expense, story });
+    });
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+};
+
 export const postList = async (req, res) => {
   const {
     session: {
@@ -45,7 +60,7 @@ export const postList = async (req, res) => {
         return res.json(doc);
       });
   } catch (error) {
-    return res.json(error);
+    return res.status(401).send(error);
   }
 };
 

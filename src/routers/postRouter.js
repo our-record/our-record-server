@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import {
   editPost,
+  postDetail,
   postList,
   removePost,
   removePostAll,
@@ -20,9 +21,10 @@ const storage = multer.diskStorage({
     cb(null, path.basename(file.originalname, ext) + '-' + Date.now() + ext);
   },
 });
-const upload = multer({ dest: 'public/images' });
+
 const uploadWithOriginalFileName = multer({ storage: storage });
 
+postRouter.get('/detail', postDetail);
 postRouter.post('/list/', postList);
 postRouter.post('/write', uploadWithOriginalFileName.single('datePhoto'), writePost);
 postRouter.post('/edit/', uploadWithOriginalFileName.single('datePhoto'), editPost);

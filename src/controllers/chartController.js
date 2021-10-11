@@ -37,6 +37,8 @@ export const monthlyData = async (req, res) => {
     body: { month, year },
   } = req;
 
+  console.log(month, year);
+
   try {
     const selectedDate = new Date(`${year}-${month}`);
 
@@ -56,7 +58,10 @@ export const monthlyData = async (req, res) => {
           },
         },
       ],
-    }).exec((err, result) => res.json(result));
+    }).exec((err, result) => {
+      console.log(result);
+      return res.json(result);
+    });
   } catch (err) {
     return res.json(err);
   }
