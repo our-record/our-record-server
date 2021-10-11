@@ -37,8 +37,6 @@ export const monthlyData = async (req, res) => {
     body: { month, year },
   } = req;
 
-  console.log(month, year);
-
   try {
     const selectedDate = new Date(`${year}-${month}`);
 

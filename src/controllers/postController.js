@@ -37,8 +37,8 @@ export const postDetail = async (req, res) => {
 
   try {
     await Post.findById(_id).exec((err, doc) => {
-      const { time, category, expenseInfo, expense, story } = doc;
-      return res.json({ time, category, expenseInfo, expense, story });
+      const { time, category, expenseInfo, expense, story, place, date } = doc;
+      return res.json({ time, category, expenseInfo, expense, story, place, date });
     });
   } catch (error) {
     return res.status(401).send(error);

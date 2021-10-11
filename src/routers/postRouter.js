@@ -24,12 +24,12 @@ const storage = multer.diskStorage({
 
 const uploadWithOriginalFileName = multer({ storage: storage });
 
-postRouter.get('/detail', postDetail);
+postRouter.get('/story/', storyDetail);
+postRouter.post('/detail', postDetail);
 postRouter.post('/list/', postList);
 postRouter.post('/write', uploadWithOriginalFileName.single('datePhoto'), writePost);
 postRouter.post('/edit/', uploadWithOriginalFileName.single('datePhoto'), editPost);
 postRouter.post('/remove/', removePost);
 postRouter.post('/remove-all', removePostAll);
-postRouter.get('/story/', storyDetail);
 
 export default postRouter;
